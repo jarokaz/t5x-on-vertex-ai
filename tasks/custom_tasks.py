@@ -119,3 +119,58 @@ for task_name, prompt_mode in zip(['xsum_s_prompt', 'xsum_x_prompt', 'xsum_r_pro
         ],
         metric_fns=[metrics.rouge],
         output_features=DEFAULT_OUTPUT_FEATURES)
+    
+  
+# A prototype task definition for Turkish to English translation
+
+@seqio.map_over_dataset
+def map_feature_names(x):
+    """Maps language names to Babel identifiers."""
+    
+    return {
+        'tr': x['turkish'],
+        'en': x['english'],
+    }
+
+
+def register_tr_en_task(
+    task_name: str,
+    train_path: str,
+    valid_path: str) -> str:
+    
+    """Registers a custom task for Turkish to English translation."""
+    
+    if task_name in TaskRegistry.names():
+        return task_name
+
+    paths = {
+        'train': train_path,
+        'validation': valid_path,
+ 
+    }
+    
+    TaskRegistry.add(
+            task_name,
+            source=seqio.TFExampleDataSource(
+                split_to_filepattern=paths, 
+                feature_description={
+                    'turkish': tf.io.FixedLenFeature(shape=(), dtype=tf.string),
+                    'english': tf.io.FixedLenFeature(shape=(), dtype=tf.string),
+                }
+            ),
+            preprocessors = [
+                map_feature_names,
+                functools.partial(
+                    preprocessors.translate,
+                    source_language='tr',
+                    target_language='en'),
+                seqio.preprocessors.tokenize,
+                seqio.CacheDatasetPlaceholder(),
+                seqio.preprocessors.append_eos_after_trim,
+            ],
+            metric_fns=[metrics.bleu],
+            output_features=DEFAULT_OUTPUT_FEATURES)
+    
+    return task_name
+
+
