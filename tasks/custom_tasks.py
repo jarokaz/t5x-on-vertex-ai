@@ -123,15 +123,6 @@ for task_name, prompt_mode in zip(['xsum_s_prompt', 'xsum_x_prompt', 'xsum_r_pro
   
 # A prototype task definition for Turkish to English translation
 
-@seqio.map_over_dataset
-def map_feature_names(x):
-    """Maps language names to Babel identifiers."""
-    
-    return {
-        'tr': x['turkish'],
-        'en': x['english'],
-    }
-
 
 def register_tr_en_task(
     task_name: str,
@@ -159,7 +150,13 @@ def register_tr_en_task(
                 }
             ),
             preprocessors = [
-                map_feature_names,
+                functools.partial(
+                    seqio.preprocessors.rekey,
+                    key_map={
+                        'tr': 'turkish',
+                        'en': 'english'
+                    }
+                ),
                 functools.partial(
                     preprocessors.translate,
                     source_language='tr',
