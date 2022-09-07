@@ -1,0 +1,19 @@
+
+from __gin__ import dynamic_registration
+
+
+#from t5x import utils
+#from t5x import infer
+
+include "t5x/configs/runs/infer_from_tfexample_file.gin"
+include "t5x/examples/t5/t5_1_1/base.gin"
+
+
+TASK_FEATURE_LENGTHS = {"inputs": 256, "targets": 256}
+TF_EXAMPLE_FILE_TYPE = 'tfrecord'
+
+#infer.create_task_from_tfexample_file.inputs_key = 'tr'
+
+
+
+
