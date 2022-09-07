@@ -10,7 +10,6 @@ include "t5x/examples/t5/t5_1_1/base.gin"
 FEATURE_LENGTHS = {"inputs": 256, "targets": 256}
 DROPOUT_RATE = 0.0
 TF_EXAMPLE_FILE_TYPE = 'tfrecord'
-TF_EXAMPLE_FILE_PATHS = ['gs://jk-t5x-staging/datasets/turkish-english/eval.tfrecords']
 
 infer_script.create_task_from_tfexample_file.inputs_key = 'turkish'
 
