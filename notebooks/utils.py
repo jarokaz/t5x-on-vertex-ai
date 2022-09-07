@@ -136,11 +136,17 @@ def create_t5x_custom_job(
     except:
         raise RuntimeError('Could not copy gin files to GCS.')
 
-    args = [
-        f'--run_mode={run_mode}',
-        f'--gin.MODEL_DIR="{model_dir}"',
-        f'--tfds_data_dir={tfds_data_dir}',
-    ]
+    if run_mode == 'infer':
+        args = [
+            f'--gin.MODEL_DIR="{model_dir}"',
+            f'--tfds_data_dir={tfds_data_dir}',
+        ]
+    else:
+        args = [
+            f'--run_mode={run_mode}',
+            f'--gin.MODEL_DIR="{model_dir}"',
+            f'--tfds_data_dir={tfds_data_dir}',
+        ]
 
     if gin_search_paths:
         args.append(f'--gin_search_paths={",".join(gin_search_paths)}')
@@ -150,6 +156,14 @@ def create_t5x_custom_job(
     if gin_overwrites:
         args += [f'--gin.{overwrite}' for overwrite in gin_overwrites]
     
+    container_spec = {
+        "image_uri": image_uri,
+        "args": args
+    }
+    
+    if run_mode == 'infer':
+        container_spec['command'] = ["python", "./t5x/t5x/infer.py"]
+  
     worker_pool_specs =  [
         {
             "machine_spec": {
@@ -158,12 +172,12 @@ def create_t5x_custom_job(
                 "accelerator_count": accelerator_count,
             },
             "replica_count": replica_count,
-            "container_spec": {
-                "image_uri": image_uri,
-                "args": args
-            },
+            "container_spec": container_spec,
         }
     ]
+    
+
+        
     
     job = vertex_ai.CustomJob(
         display_name=display_name,

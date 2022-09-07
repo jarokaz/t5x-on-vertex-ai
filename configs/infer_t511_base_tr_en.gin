@@ -1,19 +1,18 @@
 
 from __gin__ import dynamic_registration
 
-
-#from t5x import utils
-#from t5x import infer
+import __main__ as infer_script
 
 include "t5x/configs/runs/infer_from_tfexample_file.gin"
 include "t5x/examples/t5/t5_1_1/base.gin"
 
 
-TASK_FEATURE_LENGTHS = {"inputs": 256, "targets": 256}
+FEATURE_LENGTHS = {"inputs": 256, "targets": 256}
+DROPOUT_RATE = 0.0
 TF_EXAMPLE_FILE_TYPE = 'tfrecord'
+TF_EXAMPLE_FILE_PATHS = ['gs://jk-t5x-staging/datasets/turkish-english/eval.tfrecords']
 
-#infer.create_task_from_tfexample_file.inputs_key = 'tr'
-
+infer_script.create_task_from_tfexample_file.inputs_key = 'turkish'
 
 
 
