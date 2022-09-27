@@ -43,6 +43,7 @@ flags.DEFINE_string('image_uri', None, 'Training image')
 flags.DEFINE_string('job_name_prefix', 't5x_job', 'Job name prefix')
 flags.DEFINE_list('gin_files', None, 'Gin configuration files')
 flags.DEFINE_list('gin_overwrites', None, 'Gin overwrites')
+flags.DEFINE_list('gin_search_paths', None, 'Gin search paths')
 flags.DEFINE_string('accelerator_type', 'TPU_V2', 'Accelerator type')
 flags.DEFINE_integer('accelerator_count', 8, 'Number of cores')
 flags.DEFINE_string('run_mode', 'train', 'Run mode')
@@ -215,6 +216,7 @@ def _main(argv):
         run_mode=FLAGS.run_mode,
         gin_files=FLAGS.gin_files,
         gin_overwrites=FLAGS.gin_overwrites,
+        gin_search_paths=FLAGS.gin_search_paths,
         tfds_data_dir=FLAGS.tfds_data_dir,
         model_dir=job_dir,
     ) 
