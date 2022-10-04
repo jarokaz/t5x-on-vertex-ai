@@ -158,6 +158,13 @@ def _create_t5x_custom_job(
             f'--tfds_data_dir={tfds_data_dir}',
         ]
         container_spec['command'] = ["python", "./t5x/t5x/infer.py"]
+    elif run_mode == 'eval':
+        gin_overwrites.append(f'EVAL_OUTPUT_DIR="{model_dir}"')
+        args = [
+            f'--run_mode={run_mode}',
+            f'--gin.MODEL_DIR="{model_dir}"',
+            f'--tfds_data_dir={tfds_data_dir}',
+        ]        
     else:
         args = [
             f'--run_mode={run_mode}',

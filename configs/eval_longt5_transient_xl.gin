@@ -1,0 +1,24 @@
+from __gin__ import dynamic_registration
+
+import __main__ as train_script
+from t5.data import mixtures
+from t5x import models
+from t5x import partitioning
+from t5x import utils
+
+import custom_tasks
+
+include "flaxformer/t5x/configs/longt5/models/longt5_1_1_transient_global_xl.gin"
+include "t5x/configs/runs/eval.gin"
+
+EVAL_TOPOLOGY = 'v2-32'
+
+MIXTURE_OR_TASK_NAME = "cnn_dailymail_custom"
+TASK_FEATURE_LENGTHS = {"inputs": 8192, "targets": 512} 
+TRAIN_STEPS = 1_009_000  # 1000000 pre-trained steps + 6000 fine-tuning steps.
+DROPOUT_RATE = 0.0
+
+partitioning.PjitPartitioner.num_partitions = 4 
+
+# This is to avoid deprection warnings from Flaxformer
+ACTIVATION_PARTITIONING_DIMS = None

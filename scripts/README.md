@@ -55,6 +55,23 @@ python run.py \
 --run_mode=train \
 --tfds_data_dir=gs://jk-t5x-staging/datasets
 
+
+## CNN Daily Mail eval longT5 XL
+python run.py \
+--project_id=jk-mlops-dev \
+--region=us-central1 \
+--image_uri=gcr.io/jk-mlops-dev/t5x-base \
+--staging_bucket=gs://jk-t5x-staging \
+--gin_files=../configs/eval_longt5_transient_xl.gin \
+--gin_search_paths=/flaxformer \
+--gin_overwrites=USE_CACHED_TASKS=False,CHECKPOINT_PATH=\"gs://jk-t5x-staging/t5x_jobs/t5x_job_20221002170444/checkpoint_1009000\" \
+--accelerator_type=TPU_V2 \
+--accelerator_count=32 \
+--run_mode=eval \
+--tfds_data_dir=gs://jk-t5x-staging/datasets
+
+
+
 # Tensorboard
 
 
