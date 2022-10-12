@@ -11,10 +11,10 @@ import custom_tasks
 include "flaxformer/t5x/configs/longt5/models/longt5_1_1_transient_global_xl.gin"
 include "t5x/configs/runs/finetune.gin"
 
-TRAIN_TOPOLOGY = 'v3-128'
+TRAIN_TOPOLOGY = 'v2-128'
 
 MIXTURE_OR_TASK_NAME = "cnn_dailymail_custom"
-TASK_FEATURE_LENGTHS = {"inputs": 4096, "targets": 512} 
+TASK_FEATURE_LENGTHS = {"inputs": 2048, "targets": 512} 
 TRAIN_STEPS = 1_009_000  # 1000000 pre-trained steps + 6000 fine-tuning steps.
 DROPOUT_RATE = 0.1
 INITIAL_CHECKPOINT_PATH = "gs://t5-data/pretrained_models/t5x/longt5/tglobal_xl/checkpoint_1000000"

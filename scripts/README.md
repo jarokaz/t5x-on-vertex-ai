@@ -56,6 +56,23 @@ python run.py \
 --tfds_data_dir=gs://jk-t5x-staging/datasets
 
 
+# CNN Daily Mail longT5 XL
+
+python run.py \
+--project_id=jk-mlops-dev \
+--region=europe-west4 \
+--image_uri=gcr.io/jk-mlops-dev/t5x-base \
+--staging_bucket=gs://jk-staging-europe-west4 \
+--gin_files=../configs/finetune_longt5_transient_xl.gin \
+--gin_search_paths=/flaxformer \
+--gin_overwrites=USE_CACHED_TASKS=False \
+--accelerator_type=TPU_V3 \
+--accelerator_count=128 \
+--run_mode=train \
+--tfds_data_dir=gs://jk-staging-europe-west4/datasets
+
+
+
 ## CNN Daily Mail eval longT5 XL
 python run.py \
 --project_id=jk-mlops-dev \
@@ -77,8 +94,8 @@ python run.py \
 
 export TENSORBOARD_NAME=projects/895222332033/locations/us-central1/tensorboards/2937103421045473280
 export REGION=us-central1
-export EXPERIMENT_NAME=longt5-xl-1
-export LOG_DIR=gs://jk-t5x-staging/t5x_jobs/t5x_job_20221002170444
+export EXPERIMENT_NAME=longt5-xl-v3-1
+export LOG_DIR=gs://jk-staging-europe-west4/t5x_jobs/t5x_job_20221011151745
 
 tb-gcp-uploader --tensorboard_resource_name $TENSORBOARD_NAME \
 --logdir $LOG_DIR \
