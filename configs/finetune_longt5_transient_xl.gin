@@ -11,10 +11,10 @@ import custom_tasks
 include "flaxformer/t5x/configs/longt5/models/longt5_1_1_transient_global_xl.gin"
 include "t5x/configs/runs/finetune.gin"
 
-TRAIN_TOPOLOGY = 'v3-64'
+TRAIN_TOPOLOGY = 'v3-128'
 
 MIXTURE_OR_TASK_NAME = "cnn_dailymail_custom"
-TASK_FEATURE_LENGTHS = {"inputs": 2048, "targets": 512} 
+TASK_FEATURE_LENGTHS = {"inputs": 3072, "targets": 512} 
 TRAIN_STEPS = 1_009_000  # 1000000 pre-trained steps + 9000 fine-tuning steps.
 DROPOUT_RATE = 0.1
 INITIAL_CHECKPOINT_PATH = "gs://t5-data/pretrained_models/t5x/longt5/tglobal_xl/checkpoint_1000000"
@@ -26,8 +26,8 @@ EVALUATOR_NUM_EXAMPLES = 1000
 utils.create_learning_rate_scheduler.base_learning_rate = 0.001
 partitioning.PjitPartitioner.num_partitions = 8 
 partitioning.standard_logical_axis_rules:
-    activation_partitioning_dims = 2
-    parameter_partitioning_dims = 2 
+    activation_partitioning_dims = 1
+    parameter_partitioning_dims = 1 
 
 # This is to avoid deprection warnings from Flaxformer
 ACTIVATION_PARTITIONING_DIMS = None
