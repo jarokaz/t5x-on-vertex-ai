@@ -51,7 +51,7 @@ python run.py \
 --gin_search_paths=/flaxformer \
 --gin_overwrites=USE_CACHED_TASKS=False \
 --accelerator_type=TPU_V3 \
---accelerator_count=64 \
+--accelerator_count=128 \
 --run_mode=train \
 --tfds_data_dir=gs://rl-t5x-europe-west4/datasets
 
@@ -95,8 +95,8 @@ python run.py \
 
 export TENSORBOARD_NAME=projects/895222332033/locations/us-central1/tensorboards/2937103421045473280
 export REGION=us-central1
-export EXPERIMENT_NAME=longt5-xl-v3-1-3072
-export LOG_DIR=gs://rl-t5x-europe-west4/t5x_jobs/t5x_job_20221018020607
+export EXPERIMENT_NAME=longt5-xl-v3-128-3072-1
+export LOG_DIR=gs://rl-t5x-europe-west4/t5x_jobs/t5x_job_20221018203245
 
 tb-gcp-uploader --tensorboard_resource_name $TENSORBOARD_NAME \
 --logdir $LOG_DIR \
