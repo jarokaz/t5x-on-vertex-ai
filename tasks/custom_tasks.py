@@ -15,6 +15,7 @@
 """This module maintains custom task definitions and registrations."""
 
 import functools
+import logging
 import seqio
 import t5.data
 from t5.data import postprocessors
@@ -33,6 +34,8 @@ _S_PROMPT = '[S2S]'
 _X_PROMPT = '[NLG]'
 _R_PROMPT = '[NLU]'
 
+ENGLISH_C4_SPM = 'gs://t5-data/vocabs/cc_all.32000.100extra/sentencepiece.model'
+
 
 DEFAULT_OUTPUT_FEATURES = {
     "inputs": seqio.Feature(
@@ -40,6 +43,14 @@ DEFAULT_OUTPUT_FEATURES = {
         required=False),
     "targets": seqio.Feature(
         vocabulary=t5.data.get_default_vocabulary(), add_eos=True)
+}
+
+SPM_EN_C4_OUTPUT_FEATURES = {
+    "inputs": seqio.Feature(
+        vocabulary=t5.data.SentencePieceVocabulary(ENGLISH_C4_SPM, extra_ids=0), add_eos=True,
+        required=False),
+    "targets": seqio.Feature(
+        vocabulary=t5.data.SentencePieceVocabulary(ENGLISH_C4_SPM, extra_ids=0), add_eos=True)
 }
 
 
@@ -118,4 +129,4 @@ for task_name, prompt_mode in zip(['xsum_s_prompt', 'xsum_x_prompt', 'xsum_r_pro
             seqio.preprocessors.append_eos_after_trim,
         ],
         metric_fns=[metrics.rouge],
-        output_features=DEFAULT_OUTPUT_FEATURES)
+        output_features=SPM_EN_C4_OUTPUT_FEATURES)
