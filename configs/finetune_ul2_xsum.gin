@@ -24,11 +24,7 @@ DROPOUT_RATE = 0.1
 #LOSS_NORMALIZING_FACTOR = 233472
 #SCALE = 4.0
 TRAIN_STEPS = 2_670_000  # 2_650_000 pre-trained steps + 20000 fine-tuning steps.
-#TRAIN_STEPS = 1_880_000  # 1_870_000 pre-trained steps + 10000 fine-tuning steps.
-#TRAIN_STEPS = 1_890_000  # 1_870_000 pre-trained steps + 10000 fine-tuning steps.
 INITIAL_CHECKPOINT_PATH = "gs://scenic-bucket/ul2/ul220b/checkpoint_2650000"
-#INITIAL_CHECKPOINT_PATH = "gs://scenic-bucket/ul2/ul220b/checkpoint_1870000"
-#INITIAL_CHECKPOINT_PATH = "gs://rl-t5x-europe-west4/t5x_jobs/t5x_job_20221019221234/checkpoint_1880000"
 
 infer_eval/utils.DatasetConfig.task_feature_lengths = {"inputs": 1024, "targets": 256}
 
@@ -39,16 +35,13 @@ EVALUATOR_NUM_EXAMPLES = 500
 utils.create_learning_rate_scheduler.base_learning_rate = 0.0001
 utils.create_learning_rate_scheduler.warmup_steps = 10000
 utils.create_learning_rate_scheduler.factors = 'constant * linear_warmup'
-#utils.create_learning_rate_scheduler.step_offset = 1870000
-utils.create_learning_rate_scheduler.step_offset = 1880000
-
+utils.create_learning_rate_scheduler.step_offset = 2650000 
 
 # Configure data, activation, and parameter partitioning
 partitioning.PjitPartitioner.num_partitions = 8 
 partitioning.standard_logical_axis_rules:
     activation_partitioning_dims = 2
     parameter_partitioning_dims = 2
-
 
 
 # Complete the configuration of the UL2 model
