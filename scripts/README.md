@@ -76,8 +76,8 @@ python run.py \
 
 export TENSORBOARD_NAME=projects/895222332033/locations/us-central1/tensorboards/2937103421045473280
 export REGION=us-central1
-export EXPERIMENT_NAME=ul2-xsum-2
-export LOG_DIR=gs://rl-t5x-europe-west4/t5x_jobs/t5x_job_20221020152530
+export EXPERIMENT_NAME=ul2-xsum-3
+export LOG_DIR=gs://rl-t5x-europe-west4/t5x_jobs/t5x_job_20221020223500
 
 tb-gcp-uploader --tensorboard_resource_name $TENSORBOARD_NAME \
 --logdir $LOG_DIR \

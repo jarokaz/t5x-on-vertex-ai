@@ -23,8 +23,10 @@ TASK_FEATURE_LENGTHS = {"inputs": 1024, "targets": 256}
 DROPOUT_RATE = 0.1
 #LOSS_NORMALIZING_FACTOR = 233472
 #SCALE = 4.0
-TRAIN_STEPS = 2_670_000  # 2_650_000 pre-trained steps + 20000 fine-tuning steps.
-INITIAL_CHECKPOINT_PATH = "gs://scenic-bucket/ul2/ul220b/checkpoint_2650000"
+TRAIN_STEPS = 2_675_000  # 2_650_000 pre-trained steps + 30000 fine-tuning steps.
+#INITIAL_CHECKPOINT_PATH = "gs://scenic-bucket/ul2/ul220b/checkpoint_2650000"
+#INITIAL_CHECKPOINT_PATH = "gs://jk-staging-europe-west4/checkpoints/ul2/xsum/checkpoint_2670000"
+INITIAL_CHECKPOINT_PATH = "gs://rl-t5x-europe-west4/t5x_jobs/t5x_job_20221020223500/checkpoint_2670000"
 
 infer_eval/utils.DatasetConfig.task_feature_lengths = {"inputs": 1024, "targets": 256}
 
