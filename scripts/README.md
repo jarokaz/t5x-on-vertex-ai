@@ -62,13 +62,30 @@ python run.py \
 --region=europe-west4 \
 --image_uri=gcr.io/renatoleite-dev/jk-t5x-base \
 --staging_bucket=gs://rl-t5x-europe-west4 \
---gin_files=../configs/finetune_ul2_xsum.gin,../configs/ul220b_public.gin \
+--gin_files=../configs/finetune_longt5_transient_xl_xsum.gin \
 --gin_search_paths=/flaxformer \
 --gin_overwrites=USE_CACHED_TASKS=False \
 --accelerator_type=TPU_V3 \
 --accelerator_count=128 \
 --run_mode=train \
 --tfds_data_dir=gs://rl-t5x-europe-west4/datasets
+
+
+
+# XSUM longT5 XL
+
+python run.py \
+--project_id=jk-mlops-dev \
+--region=europe-west4 \
+--image_uri=gcr.io/jk-mlops-dev/t5x-base \
+--staging_bucket=gs://jk-staging-europe-west4 \
+--gin_files=../configs/finetune_longt5_transient_xl_xsum.gin \
+--gin_search_paths=/flaxformer \
+--gin_overwrites=USE_CACHED_TASKS=False \
+--accelerator_type=TPU_V3 \
+--accelerator_count=32 \
+--run_mode=train \
+--tfds_data_dir=gs://jk-staging-europe-west4/datasets
 
 
 # Tensorboard
