@@ -11,7 +11,7 @@ import custom_tasks
 include "flaxformer/t5x/configs/longt5/models/longt5_1_1_transient_global_xl.gin"
 include "t5x/configs/runs/finetune.gin"
 
-TRAIN_TOPOLOGY = 'v3-64'
+TRAIN_TOPOLOGY = 'v3-32'
 
 MIXTURE_OR_TASK_NAME = "xsum"
 TASK_FEATURE_LENGTHS = {"inputs": 1024, "targets": 128} 
