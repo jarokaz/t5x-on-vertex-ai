@@ -15,9 +15,10 @@ TRAIN_TOPOLOGY = 'v3-32'
 
 MIXTURE_OR_TASK_NAME = "xsum"
 TASK_FEATURE_LENGTHS = {"inputs": 1024, "targets": 128} 
-TRAIN_STEPS = 1_009_000  # 1000000 pre-trained steps + 9000 fine-tuning steps.
+TRAIN_STEPS = 1_015_000  # 1000000 pre-trained steps + 9000 fine-tuning steps.
 DROPOUT_RATE = 0.1
-INITIAL_CHECKPOINT_PATH = "gs://t5-data/pretrained_models/t5x/longt5/tglobal_xl/checkpoint_1000000"
+#INITIAL_CHECKPOINT_PATH = "gs://t5-data/pretrained_models/t5x/longt5/tglobal_xl/checkpoint_1000000"
+INITIAL_CHECKPOINT_PATH = "gs://jk-staging-europe-west4/t5x_jobs/t5x_job_20221026155950/checkpoint_1009000"
 #LOSS_NORMALIZING_FACTOR = 116480
 EVAL_PERIOD = 500
 BATCH_SIZE = 128
