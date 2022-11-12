@@ -70,19 +70,7 @@ python run.py \
 --run_mode=train \
 --tfds_data_dir=gs://rl-t5x-europe-west4/datasets
 
-# XSUM UL2
-python run.py \
---project_id=jk-mlops-dev \
---region=europe-west4 \
---image_uri=gcr.io/jk-mlops-dev/t5x-base \
---staging_bucket=gs://jk-staging-europe-west4 \
---gin_files=../configs/finetune_ul2_xsum.gin,../configs/ul220b_public.gin \
---gin_search_paths=/flaxformer \
---gin_overwrites=USE_CACHED_TASKS=False \
---accelerator_type=TPU_V3 \
---accelerator_count=128 \
---run_mode=train \
---tfds_data_dir=gs://jk-staging-europe-west4/datasets
+
 
 
 # XSUM longT5 XL
@@ -101,13 +89,29 @@ python run.py \
 --tfds_data_dir=gs://jk-staging-europe-west4/datasets
 
 
+# XSUM UL2
+python run.py \
+--project_id=jk-mlops-dev \
+--region=europe-west4 \
+--image_uri=gcr.io/jk-mlops-dev/t5x-base \
+--staging_bucket=gs://jk-staging-europe-west4 \
+--gin_files=../configs/finetune_ul2_xsum.gin,../configs/ul220b_public.gin \
+--gin_search_paths=/flaxformer \
+--gin_overwrites=USE_CACHED_TASKS=False,TRAIN_STEPS=2_700_000,INITIAL_CHECKPOINT_PATH=\"gs://scenic-bucket/ul2/ul220b/checkpoint_2650000\" \
+--accelerator_type=TPU_V3 \
+--accelerator_count=128 \
+--run_mode=train \
+--tfds_data_dir=gs://jk-staging-europe-west4/datasets
+
+
+
 # Tensorboard
 
 
 export TENSORBOARD_NAME=projects/895222332033/locations/us-central1/tensorboards/2937103421045473280
 export REGION=us-central1
-export EXPERIMENT_NAME=longt5-xl-xsum-4
-export LOG_DIR=gs://jk-staging-europe-west4/t5x_jobs/t5x_job_20221104005457
+export EXPERIMENT_NAME=ul2-xsum-10
+export LOG_DIR=gs://jk-staging-europe-west4/t5x_jobs/t5x_job_20221112014722
 
 tb-gcp-uploader --tensorboard_resource_name $TENSORBOARD_NAME \
 --logdir $LOG_DIR \

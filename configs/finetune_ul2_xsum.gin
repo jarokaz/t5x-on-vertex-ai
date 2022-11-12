@@ -23,10 +23,8 @@ TASK_FEATURE_LENGTHS = {"inputs": 1024, "targets": 256}
 DROPOUT_RATE = 0.1
 #LOSS_NORMALIZING_FACTOR = 233472
 #SCALE = 4.0
-TRAIN_STEPS = 2_680_000  # 2_650_000 pre-trained steps + 30000 fine-tuning steps.
+TRAIN_STEPS = 2_680_000  # 2_650_000 pre-trained steps + 50000 fine-tuning steps.
 INITIAL_CHECKPOINT_PATH = "gs://scenic-bucket/ul2/ul220b/checkpoint_2650000"
-#INITIAL_CHECKPOINT_PATH = "gs://jk-staging-europe-west4/checkpoints/ul2/xsum/checkpoint_2670000"
-#INITIAL_CHECKPOINT_PATH = "gs://rl-t5x-europe-west4/t5x_jobs/t5x_job_20221020223500/checkpoint_2670000"
 
 infer_eval/utils.DatasetConfig.task_feature_lengths = {"inputs": 1024, "targets": 256}
 
@@ -34,8 +32,8 @@ infer_eval/utils.DatasetConfig.task_feature_lengths = {"inputs": 1024, "targets"
 EVALUATOR_NUM_EXAMPLES = 1000
 
 # Change the default learning rate
-utils.create_learning_rate_scheduler.base_learning_rate = 1e-4
-utils.create_learning_rate_scheduler.warmup_steps = 50000
+utils.create_learning_rate_scheduler.base_learning_rate = 5e-5
+utils.create_learning_rate_scheduler.warmup_steps = 10000
 utils.create_learning_rate_scheduler.decay_factor = 0.00011
 utils.create_learning_rate_scheduler.steps_per_cycle = 100000
 utils.create_learning_rate_scheduler.factors = 'constant * linear_warmup'
