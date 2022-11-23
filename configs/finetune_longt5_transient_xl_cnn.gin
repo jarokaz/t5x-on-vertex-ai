@@ -19,7 +19,7 @@ TRAIN_STEPS = 1_010_000  # 1000000 pre-trained steps + 10000 fine-tuning steps.
 DROPOUT_RATE = 0.1
 INITIAL_CHECKPOINT_PATH = "gs://t5-data/pretrained_models/t5x/longt5/tglobal_xl/checkpoint_1000000"
 #LOSS_NORMALIZING_FACTOR = 116480
-EVAL_PERIOD = 500
+EVAL_PERIOD = 1000
 BATCH_SIZE = 128
 EVALUATOR_NUM_EXAMPLES = 1000
 
