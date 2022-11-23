@@ -21,7 +21,7 @@ INITIAL_CHECKPOINT_PATH = "gs://t5-data/pretrained_models/t5x/longt5/tglobal_xl/
 #LOSS_NORMALIZING_FACTOR = 116480
 EVAL_PERIOD = 500
 BATCH_SIZE = 128
-EVALUATOR_NUM_EXAMPLES = 2000
+EVALUATOR_NUM_EXAMPLES = 1000
 
 utils.create_learning_rate_scheduler.base_learning_rate = 0.001
 utils.create_learning_rate_scheduler.warmup_steps = 5000
