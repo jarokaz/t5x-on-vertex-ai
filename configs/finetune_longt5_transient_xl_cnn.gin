@@ -15,7 +15,7 @@ TRAIN_TOPOLOGY = 'v2-128'
 
 MIXTURE_OR_TASK_NAME = "cnn_dailymail_custom"
 TASK_FEATURE_LENGTHS = {"inputs": 2048, "targets": 512} 
-TRAIN_STEPS = 1_009_000  # 1000000 pre-trained steps + 6000 fine-tuning steps.
+TRAIN_STEPS = 1_010_000  # 1000000 pre-trained steps + 10000 fine-tuning steps.
 DROPOUT_RATE = 0.1
 INITIAL_CHECKPOINT_PATH = "gs://t5-data/pretrained_models/t5x/longt5/tglobal_xl/checkpoint_1000000"
 #LOSS_NORMALIZING_FACTOR = 116480
@@ -24,6 +24,9 @@ BATCH_SIZE = 128
 EVALUATOR_NUM_EXAMPLES = 2000
 
 utils.create_learning_rate_scheduler.base_learning_rate = 0.001
+utils.create_learning_rate_scheduler.warmup_steps = 5000
+utils.create_learning_rate_scheduler.factors = 'constant * linear_warmup'
+utils.create_learning_rate_scheduler.step_offset = 1000000 
 partitioning.PjitPartitioner.num_partitions = 8 
 partitioning.standard_logical_axis_rules:
     activation_partitioning_dims = 2
