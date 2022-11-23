@@ -104,6 +104,21 @@ python run.py \
 --tfds_data_dir=gs://jk-staging-europe-west4/datasets
 
 
+# CUAD Long T5 Large
+python run.py \
+--project_id=jk-mlops-dev \
+--region=europe-west4 \
+--image_uri=gcr.io/jk-mlops-dev/t5x-base \
+--staging_bucket=gs://jk-staging-europe-west4 \
+--gin_files=../configs/finetune_longT5_xl_cuad.gin \
+--gin_search_paths=/flaxformer \
+--gin_overwrites=USE_CACHED_TASKS=False, \
+--accelerator_type=TPU_V3 \
+--accelerator_count=128 \
+--run_mode=train \
+--tfds_data_dir=gs://jk-staging-europe-west4/datasets
+
+
 
 # Tensorboard
 
@@ -115,4 +130,6 @@ export LOG_DIR=gs://jk-staging-europe-west4/t5x_jobs/t5x_job_20221112014722
 
 tb-gcp-uploader --tensorboard_resource_name $TENSORBOARD_NAME \
 --logdir $LOG_DIR \
---experiment_name $EXPERIMENT_NAME
+--experiment_name $EXPERIMENT_NAMEexport PYENV_ROOT="$HOME/.pyenv"
+command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
