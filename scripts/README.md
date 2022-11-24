@@ -110,7 +110,7 @@ python run.py \
 --staging_bucket=gs://jk-t5x-staging \
 --gin_files=../configs/infer_longt5_transient_xl_cnn.gin \
 --gin_search_paths=/flaxformer \
---gin_overwrites=INFER_OUTPUT_PATH=\"gs://jk-t5x-staging/t5_jobs/infer_outputs/cnn_dailymai/1\",CHECKPOINT_PATH=\"gs://jk-t5x-staging/t5x_jobs/t5x_job_20221123162241/checkpoint_1010000\" \
+--gin_overwrites=INFER_OUTPUT_DIR=\"gs://jk-t5x-staging/t5_jobs/infer_outputs/cnn_dailymai/1\",CHECKPOINT_PATH=\"gs://jk-t5x-staging/t5x_jobs/t5x_job_20221123162241/checkpoint_1010000\" \
 --accelerator_type=TPU_V2 \
 --accelerator_count=32 \
 --run_mode=infer \
