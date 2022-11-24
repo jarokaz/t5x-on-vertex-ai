@@ -80,15 +80,41 @@ python run.py \
 --region=us-central1 \
 --image_uri=gcr.io/jk-mlops-dev/t5x-base \
 --staging_bucket=gs://jk-t5x-staging \
---gin_files=../configs/eval_longt5_transient_xl.gin \
+--gin_files=../configs/eval_longt5_transient_xl_cnn.gin \
 --gin_search_paths=/flaxformer \
---gin_overwrites=USE_CACHED_TASKS=False,CHECKPOINT_PATH=\"gs://jk-t5x-staging/t5x_jobs/t5x_job_20221002170444/checkpoint_1009000\" \
+--gin_overwrites=USE_CACHED_TASKS=False,CHECKPOINT_PATH=\"gs://jk-t5x-staging/t5x_jobs/t5x_job_20221123162241/checkpoint_1010000\" \
 --accelerator_type=TPU_V2 \
 --accelerator_count=32 \
 --run_mode=eval \
 --tfds_data_dir=gs://jk-t5x-staging/datasets
 
+python run.py \
+--project_id=jk-mlops-dev \
+--region=europe-west4 \
+--image_uri=gcr.io/jk-mlops-dev/t5x-base \
+--staging_bucket=gs://jk-staging-europe-west4 \
+--gin_files=../configs/eval_longt5_transient_xl_cnn.gin \
+--gin_search_paths=/flaxformer \
+--gin_overwrites=USE_CACHED_TASKS=False,CHECKPOINT_PATH=\"gs://jk-t5x-staging/t5x_jobs/t5x_job_20221123162241/checkpoint_1010000\" \
+--accelerator_type=TPU_V3 \
+--accelerator_count=32 \
+--run_mode=eval \
+--tfds_data_dir=gs://jk-staging-europe-west4/datasets
 
+
+# CNN Daily Mail longT5 XL infer
+python run.py \
+--project_id=jk-mlops-dev \
+--region=us-central1 \
+--image_uri=gcr.io/jk-mlops-dev/t5x-base \
+--staging_bucket=gs://jk-t5x-staging \
+--gin_files=../configs/infer_longt5_transient_xl_cnn.gin \
+--gin_search_paths=/flaxformer \
+--gin_overwrites=INFER_OUTPUT_PATH=\"gs://jk-t5x-staging/t5_jobs/infer_outputs/cnn_dailymai/1\",CHECKPOINT_PATH=\"gs://jk-t5x-staging/t5x_jobs/t5x_job_20221123162241/checkpoint_1010000\" \
+--accelerator_type=TPU_V2 \
+--accelerator_count=32 \
+--run_mode=infer \
+--tfds_data_dir=gs://jk-t5x-staging/datasets
 
 
 # CNN Daily Mail longT5 XL - v2-128

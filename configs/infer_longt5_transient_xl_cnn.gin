@@ -14,7 +14,8 @@ include "t5x/configs/runs/infer.gin"
 TRAIN_TOPOLOGY = 'v2-32'
 
 MIXTURE_OR_TASK_NAME = "cnn_dailymail_custom"
-TASK_FEATURE_LENGTHS = {"inputs": 2048, "targets": 512} 
+TASK_FEATURE_LENGTHS = {"inputs": 4096, "targets": 512} 
 DROPOUT_RATE = 0.0
 
+utils.DatasetConfig.batch_size = 64
 partitioning.PjitPartitioner.num_partitions = 4 
